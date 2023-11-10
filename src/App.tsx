@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Box, Container, Stack, TextField, Typography } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import "./App.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Container maxWidth="sm">
+      <Box>
+        <Typography>TODOリスト一覧</Typography>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          spacing={2}
+          alignItems="center"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <TextField label="タスクを入力してください" variant="filled" />
+          <AddCircleIcon />
+        </Stack>
+      </Box>
+      <Box>
+        <Typography>TODOリスト一覧</Typography>
+      </Box>
+      <Box>
+        <Typography>TODOリスト一覧</Typography>
+      </Box>
+    </Container>
   );
-}
+};
 
 export default App;
