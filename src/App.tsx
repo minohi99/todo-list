@@ -20,14 +20,53 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 
 const App = () => {
-  const [todolistAdd, setTodolistAdd] = useState("");
+  const [todoText, setTodoText] = useState("");
+  const [todosAdd, setTodosAdd] = useState<string[]>([]);
+  const [todosComplete, setTodosComplete] = useState<string[]>([]);
 
   const onClickAdd = () => {
-    setTodolistAdd(todolistAdd);
+    if (todoText === "") return;
+    const newTodos = [...todosAdd, todoText];
+    setTodosAdd(newTodos);
+    setTodoText("");
+  };
+
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTodoText(e.target.value);
+  };
+
+  const onClickDelete = (event: React.MouseEvent, index: number) => {
+    event.stopPropagation();
+    const newTodos = [...todosAdd];
+    newTodos.splice(index, 1);
+    setTodosAdd(newTodos);
+  };
+  const onClickComplete = (index: number) => {
+    const newTodos = [...todosAdd];
+    const newCompleteTodos = [...todosComplete, newTodos[index]];
+
+    newTodos.splice(index, 1);
+    setTodosAdd(newTodos);
+    setTodosComplete(newCompleteTodos);
+  };
+
+  const onClickReturn = (index: number) => {
+    const newCompleteTodos = [...todosComplete];
+    const newAddTodos = [...todosAdd, todosComplete[index]];
+    newCompleteTodos.splice(index, 1);
+
+    setTodosComplete(newCompleteTodos);
+    setTodosAdd(newAddTodos);
   };
   return (
-    <Container maxWidth="sm" style={{ padding: 40 }}>
-      <Stack spacing={10}>
+    <Container
+      maxWidth="sm"
+      style={{
+        padding: "200px 40px 40px",
+        height: "100vh",
+      }}
+    >
+      <Stack spacing={6}>
         <Box
           style={{
             borderRadius: 8,
@@ -49,6 +88,8 @@ const App = () => {
                     backgroundColor: "#ffffff",
                   }}
                   placeholder="タスクを入力してください"
+                  value={todoText}
+                  onChange={onChangeText}
                 />
               </FormControl>
               <AddCircleIcon
@@ -73,43 +114,36 @@ const App = () => {
         >
           <Typography variant="h5">未完了</Typography>
           <List>
-            <ListItemButton
-              sx={{
-                padding: 0,
-              }}
-            >
-              <ListItem
-                secondaryAction={
-                  <IconButton>
-                    <DeleteOutlineIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemIcon>
-                  <Checkbox edge="start" />
-                </ListItemIcon>
-                TODO1
-              </ListItem>
-            </ListItemButton>
-            <Divider />
-            <ListItemButton
-              sx={{
-                padding: 0,
-              }}
-            >
-              <ListItem
-                secondaryAction={
-                  <IconButton>
-                    <DeleteOutlineIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemIcon>
-                  <Checkbox edge="start" />
-                </ListItemIcon>
-                TODO2
-              </ListItem>
-            </ListItemButton>
+            {todosAdd.map((todo, index) => {
+              return (
+                <>
+                  <ListItemButton
+                    sx={{
+                      padding: 0,
+                    }}
+                    key={index}
+                    onClick={() => onClickComplete(index)}
+                  >
+                    <ListItem
+                      secondaryAction={
+                        <IconButton onClick={(e) => onClickDelete(e, index)}>
+                          <DeleteOutlineIcon />
+                        </IconButton>
+                      }
+                    >
+                      <ListItemIcon>
+                        <Checkbox
+                          edge="start"
+                          // onClick={() => onClickComplete(index)}
+                        />
+                      </ListItemIcon>
+                      {todo}
+                    </ListItem>
+                  </ListItemButton>
+                  <Divider />
+                </>
+              );
+            })}
           </List>
         </Box>
         <Box
@@ -121,43 +155,33 @@ const App = () => {
         >
           <Typography variant="h5">完了</Typography>
           <List>
-            <ListItemButton
-              sx={{
-                padding: 0,
-              }}
-            >
-              <ListItem
-                secondaryAction={
-                  <IconButton>
-                    <KeyboardReturnIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemIcon>
-                  <Checkbox edge="start" checked />
-                </ListItemIcon>
-                TODO3
-              </ListItem>
-            </ListItemButton>
-            <Divider />
-            <ListItemButton
-              sx={{
-                padding: 0,
-              }}
-            >
-              <ListItem
-                secondaryAction={
-                  <IconButton>
-                    <KeyboardReturnIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemIcon>
-                  <Checkbox edge="start" checked />
-                </ListItemIcon>
-                TODO4
-              </ListItem>
-            </ListItemButton>
+            {todosComplete.map((todo, index) => {
+              return (
+                <>
+                  <ListItemButton
+                    sx={{
+                      padding: 0,
+                    }}
+                    key={index}
+                    onClick={() => onClickReturn(index)}
+                  >
+                    <ListItem
+                      secondaryAction={
+                        <IconButton>
+                          <KeyboardReturnIcon />
+                        </IconButton>
+                      }
+                    >
+                      <ListItemIcon>
+                        <Checkbox edge="start" checked />
+                      </ListItemIcon>
+                      <s>{todo}</s>
+                    </ListItem>
+                  </ListItemButton>
+                  <Divider />
+                </>
+              );
+            })}
           </List>
         </Box>
       </Stack>
