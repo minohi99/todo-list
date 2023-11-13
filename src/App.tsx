@@ -18,6 +18,7 @@ import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { HeaderBar } from "./components/organisms/HeaderBar";
 
 const App = () => {
   const [todoText, setTodoText] = useState("");
@@ -66,6 +67,7 @@ const App = () => {
         height: "100vh",
       }}
     >
+      <HeaderBar />
       <Stack spacing={6}>
         <Box
           style={{
