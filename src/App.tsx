@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
@@ -114,36 +114,42 @@ const App = () => {
         >
           <Typography variant="h5">未完了</Typography>
           <List>
-            {todosAdd.map((todo, index) => {
-              return (
-                <>
-                  <ListItemButton
-                    sx={{
-                      padding: 0,
-                    }}
-                    key={index}
-                    onClick={() => onClickComplete(index)}
-                  >
-                    <ListItem
-                      secondaryAction={
-                        <IconButton onClick={(e) => onClickDelete(e, index)}>
-                          <DeleteOutlineIcon />
-                        </IconButton>
-                      }
+            {todosAdd.length > 0 ? (
+              todosAdd.map((todo, index) => {
+                return (
+                  <>
+                    <ListItemButton
+                      sx={{
+                        padding: 0,
+                      }}
+                      key={index}
+                      onClick={() => onClickComplete(index)}
                     >
-                      <ListItemIcon>
-                        <Checkbox
-                          edge="start"
-                          // onClick={() => onClickComplete(index)}
-                        />
-                      </ListItemIcon>
-                      {todo}
-                    </ListItem>
-                  </ListItemButton>
-                  <Divider />
-                </>
-              );
-            })}
+                      <ListItem
+                        secondaryAction={
+                          <IconButton onClick={(e) => onClickDelete(e, index)}>
+                            <DeleteOutlineIcon />
+                          </IconButton>
+                        }
+                      >
+                        <ListItemIcon>
+                          <Checkbox
+                            edge="start"
+                            // onClick={() => onClickComplete(index)}
+                          />
+                        </ListItemIcon>
+                        {todo}
+                      </ListItem>
+                    </ListItemButton>
+                    <Divider />
+                  </>
+                );
+              })
+            ) : (
+              <Typography sx={{ padding: 2 }}>
+                未完了のTODOがありません
+              </Typography>
+            )}
           </List>
         </Box>
         <Box
@@ -155,14 +161,13 @@ const App = () => {
         >
           <Typography variant="h5">完了</Typography>
           <List>
-            {todosComplete.map((todo, index) => {
-              return (
-                <>
+            {todosComplete.length > 0 ? (
+              todosComplete.map((todo, index) => (
+                <React.Fragment key={index}>
                   <ListItemButton
                     sx={{
                       padding: 0,
                     }}
-                    key={index}
                     onClick={() => onClickReturn(index)}
                   >
                     <ListItem
@@ -179,9 +184,13 @@ const App = () => {
                     </ListItem>
                   </ListItemButton>
                   <Divider />
-                </>
-              );
-            })}
+                </React.Fragment>
+              ))
+            ) : (
+              <Typography sx={{ padding: 2 }}>
+                完了したTODOがありません
+              </Typography>
+            )}
           </List>
         </Box>
       </Stack>
