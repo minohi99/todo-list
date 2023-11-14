@@ -94,16 +94,19 @@ const App = () => {
                   onChange={onChangeText}
                 />
               </FormControl>
-              <AddCircleIcon
+              <IconButton
                 sx={{
                   padding: 1,
+                  color: "black",
                   "&:hover": {
                     cursor: "pointer",
-                    opacity: 0.8,
                   },
                 }}
                 onClick={onClickAdd}
-              />
+                disabled={!todoText}
+              >
+                <AddCircleIcon />
+              </IconButton>
             </Stack>
           </Stack>
         </Box>
