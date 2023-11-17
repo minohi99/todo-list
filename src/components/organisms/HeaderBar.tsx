@@ -1,6 +1,7 @@
-import { AppBar, Box, Typography } from "@mui/material";
+import { AppBar, Typography } from "@mui/material";
+import { memo } from "react";
 
-export const HeaderBar = () => {
+export const HeaderBar = memo(() => {
   return (
     <>
       <AppBar position="fixed" sx={{ flexGrow: 1, padding: "20px" }}>
@@ -14,4 +15,4 @@ export const HeaderBar = () => {
       </AppBar>
     </>
   );
-};
+});

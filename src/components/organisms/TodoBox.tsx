@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 
 type TodoBoxType = {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ type TodoBoxType = {
   status: "add" | "complete" | "incomplete";
 };
 
-export const TodoBox = ({ children, bgColor, status }: TodoBoxType) => {
+export const TodoBox = memo(({ children, bgColor, status }: TodoBoxType) => {
   return (
     <Box
       style={{
@@ -19,4 +19,4 @@ export const TodoBox = ({ children, bgColor, status }: TodoBoxType) => {
       {status === "add" ? <Stack spacing={1}>{children}</Stack> : children}
     </Box>
   );
-};
+});

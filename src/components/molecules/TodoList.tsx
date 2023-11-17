@@ -1,6 +1,7 @@
 import { List } from "@mui/material";
 import { TodoListItem } from "../atoms/TodoListItem";
 import { NoTodosText } from "../atoms/NoTodosText";
+import { memo } from "react";
 
 type TodoListType = {
   todos: string[];
@@ -11,31 +12,33 @@ type TodoListType = {
   message: string;
 };
 
-export const TodoList = ({
-  todos,
-  onClickDelete,
-  onClickReturn,
-  onClickComplete,
-  status,
-  message,
-}: TodoListType) => {
-  return (
-    <List>
-      {todos.length > 0 ? (
-        todos.map((todo, index) => (
-          <TodoListItem
-            key={index}
-            onClickDelete={onClickDelete}
-            onClickReturn={onClickReturn}
-            onClickComplete={onClickComplete}
-            todo={todo}
-            index={index}
-            status={status}
-          />
-        ))
-      ) : (
-        <NoTodosText message={message} />
-      )}
-    </List>
-  );
-};
+export const TodoList = memo(
+  ({
+    todos,
+    onClickDelete,
+    onClickReturn,
+    onClickComplete,
+    status,
+    message,
+  }: TodoListType) => {
+    return (
+      <List>
+        {todos.length > 0 ? (
+          todos.map((todo, index) => (
+            <TodoListItem
+              key={index}
+              onClickDelete={onClickDelete}
+              onClickReturn={onClickReturn}
+              onClickComplete={onClickComplete}
+              todo={todo}
+              index={index}
+              status={status}
+            />
+          ))
+        ) : (
+          <NoTodosText message={message} />
+        )}
+      </List>
+    );
+  }
+);

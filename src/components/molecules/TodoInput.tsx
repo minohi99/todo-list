@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import { TodoInputFiled } from "../atoms/TodoInputFiled";
 import { TodoAddButton } from "../atoms/TodoAddButton";
-import React from "react";
+import React, { memo } from "react";
 
 type TodoInputType = {
   todoPlaceholder: string;
@@ -10,25 +10,22 @@ type TodoInputType = {
   onClickAdd: () => void;
 };
 
-export const TodoInput = ({
-  todoPlaceholder,
-  todoText,
-  onChangeText,
-  onClickAdd,
-}: TodoInputType) => {
-  return (
-    <Stack
-      direction="row"
-      justifyContent="center"
-      spacing={1}
-      alignItems="center"
-    >
-      <TodoInputFiled
-        todoPlaceholder={todoPlaceholder}
-        todoText={todoText}
-        onChangeText={onChangeText}
-      />
-      <TodoAddButton onClickAdd={onClickAdd} todoText={todoText} />
-    </Stack>
-  );
-};
+export const TodoInput = memo(
+  ({ todoPlaceholder, todoText, onChangeText, onClickAdd }: TodoInputType) => {
+    return (
+      <Stack
+        direction="row"
+        justifyContent="center"
+        spacing={1}
+        alignItems="center"
+      >
+        <TodoInputFiled
+          todoPlaceholder={todoPlaceholder}
+          todoText={todoText}
+          onChangeText={onChangeText}
+        />
+        <TodoAddButton onClickAdd={onClickAdd} todoText={todoText} />
+      </Stack>
+    );
+  }
+);
