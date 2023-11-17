@@ -10,6 +10,21 @@ import Checkbox from "@mui/material/Checkbox";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 
+/**
+ * `TodoListItem` コンポーネントは、個々のTODOリストアイテムを表示します。
+ * 各アイテムには、完了/未完了の状態を切り替えるチェックボックス、
+ * 削除ボタン、および未完了のアイテムに戻すためのボタンが含まれます。
+ *
+ * @param {Object} props - コンポーネントのプロップス
+ * @param {(event: React.MouseEvent<HTMLButtonElement>, index: number) => void} props.onClickDelete - 削除ボタンのクリックイベントハンドラ
+ * @param {string} props.todo - 表示するTODOのテキスト
+ * @param {number} props.index - TODOアイテムのインデックス
+ * @param {"complete" | "incomplete"} props.status - TODOアイテムの状態
+ * @param {(index: number) => void} [props.onClickComplete] - 完了ボタンのクリックイベントハンドラ
+ * @param {(index: number) => void} [props.onClickReturn] - 未完了に戻すボタンのクリックイベントハンドラ
+ * @returns {JSX.Element} TODOリストアイテム
+ */
+
 type TodoListItemType = {
   onClickDelete: (
     event: React.MouseEvent<HTMLButtonElement>,

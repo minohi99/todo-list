@@ -1,6 +1,13 @@
 import { AppBar, Typography } from "@mui/material";
 import { memo } from "react";
 
+/**
+ * `HeaderBar` コンポーネントは、アプリケーションのヘッダー部分を表示します。
+ * このコンポーネントは固定位置のアプリバーに "TODOアプリ" というタイトルを表示します。
+ *
+ * @returns {JSX.Element} アプリケーションのヘッダーバー
+ */
+
 export const HeaderBar = memo(() => {
   return (
     <>
